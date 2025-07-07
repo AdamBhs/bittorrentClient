@@ -1,0 +1,17 @@
+1 - Sending Message through a socket, it must be in the form of a buffer
+
+2 - The specific protocol we should follow to get the list of peers from the tracker : 
+    - send a connect request
+    - get the connect response and extract the connection id
+    - Use the connection id to send an announce request
+     this is where we tell the tracker which files we're interested in
+    - Get the announce response and extract the peers list
+
+
+3 - For making an UDP connect Request for a BitTorrent tracker we should follow the protocol (BEP 15)
+    that we should allocates a 16 byte buffer for the message and the structure look like this : 
+
+    Offset	Length	Field
+    0	    8	    connection_id
+    8	    4	    action (0 = connect)
+    12	    4	    transaction_id
