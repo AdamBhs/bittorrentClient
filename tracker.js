@@ -5,8 +5,8 @@ import dgram from "dgram"; // the module for UDP (user datagram protocol)
 import {Buffer} from "buffer";
 import { parse as urlParse } from "url"; 
 import crypto from "crypto";
-import torrentParser from './torrent-parser'
-import util from "./util";
+import {infoHash, size} from './torrent-parser.js'
+import {genId} from "./util.js";
 
 export function getPeers (torrent, callback) {
     const socket = dgram.createSocket('udp4');
@@ -76,7 +76,7 @@ function buildAnnounceReq(connId) {
   // info hash
   torrentParser.infoHash(torrent).copy(buf, 16);
   // peerId
-  util.genId().copy(buf, 36);
+  genId().copy(buf, 36);
   // downloaded
   Buffer.alloc(8).copy(buf, 56);
   // left
